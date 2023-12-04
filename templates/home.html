@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dataapp - Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="header">
+        <img src="{% static 'images/logo1.png' %}" alt="Dataapp Logo" class="logo">
+        <h1 class="app-name">Dataapp</h1>
+    </div>
+    <nav class="nav">
+        <a href="{% url 'about' %}">About</a>
+        
+        <a href="{% url 'add_service' %}">Add Service</a>
+
+
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+        
+    </nav>
+    <div class="about-section">
+        <h2>About Dataapp</h2>
+        <p>Dataapp is your one stop app for managing all your subscriptions and ensuring you do not end up paying for yet another subscription you do not use.</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+ /* Main color scheme */
+   :root {
+       --primary-color: #352682; /* A unique shade of blue */
+       --secondary-color: #ff5900; /* A flair color for accents */
+       --background-color: #d5d9e7; /* Light gray background */
+       --text-color: #080a0d; /* Dark gray text for readability */
+   }
+
+   /* Base styles */
+   body {
+       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+       color: var(--text-color);
+       background-color: var(--background-color);
+       line-height: 1.6;
+       padding: 20px;
+   }
+
+   h1, h2, h3, h4, h5, h6 {
+       color: var(--primary-color);
+   }
+
+   a {
+       color: var(--primary-color);
+       text-decoration: none;
+   }
+
+   a:hover {
+       color: var(--secondary-color);
+       text-decoration: underline;
+   }
+
+   /* Buttons */
+   button, .button {
+       background-color: var(--primary-color);
+       color: #f79797;
+       border: none;
+       padding: 10px 20px;
+       cursor: pointer;
+   }
+
+   button:hover, .button:hover {
+       background-color: var(--secondary-color);
+   }
+
+   /* Layout and spacing */
+   .container {
+       max-width: 1200px;
+       margin: 0 auto;
+       padding: 0 15px;
+   }
+
+   .section {
+       margin: 40px 0;
+   }
+
+   /* Responsive design */
+   @media (max-width: 768px) {
+       .container {
+           padding: 0 10px;
+       }
+   }

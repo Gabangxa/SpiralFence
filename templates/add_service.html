@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Details</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .button {
+            cursor: pointer;
+            color: blue;
+            margin-left: 5px;
+        }
+        .delete-row {
+            color: red;
+        }
+        .disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="{% url 'about' %}">About</a>
+    </nav>
+    <h2>Service Details</h2>
+    <table id="serviceTable">
+        <thead>
+            <tr>
+                <th>Name of the service</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Renewal</th>
+                <th>Auto Renewal</th>
+                <th>Renewal Type</th>
+                <th>Payment Frequency</th>
+                <th>Custom Notes</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" name="serviceName[]"></td>
+                <td><input type="date" name="startDate[]"></td>
+                <td><input type="date" name="endDate[]"></td>
+                <td><select name="renewal[]"><option value="Yes">Yes</option><option value="No">No</option></select></td>
+                <td><select name="autoRenewal[]"><option value="Yes">Yes</option><option value="No">No</option><option value="N/A">N/A</option></select></td>
+                <td><select name="renewalType[]"><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option><option value="Quarterly">Quarterly</option><option value="Semi-Annually">Semi-Annually</option><option value="Annually">Annually</option><option value="Other">Other</option><option value="No Renewal">No Renewal</option></select></td>
+                <td><select name="paymentFrequency[]"><option value="Weekly">Weekly</option><option value="Monthly">Monthly</option><option value="Quarterly">Quarterly</option><option value="Semi-Annually">Semi-Annually</option><option value="Annually">Annually</option><option value="Once-off">Once-off</option></select></td>
+                <td><input type="text" name="customNotes[]"></td>
+                <td class="action-buttons">
+                    <span class="button add-row">+</span>
+                    <span class="button delete-row">-</span>
+                    <span class="button save-row">Save</span>
+                    <span class="button edit-row" style="display:none;">Edit</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const table = document.getElementById('serviceTable');
+            table.addEventListener('click', function(e) {
+                const target = e.target;
+                if (!target) return;
+
+                if (target.classList.contains('add-row')) {
+                    const newRow = table.rows[1].cloneNode(true);
+                    newRow.querySelectorAll('input, select').forEach(input => input.value = '');
+                    newRow.querySelector('.edit-row').style.display = 'none';
+                    newRow.querySelector('.save-row').style.display = 'inline';
+                    table.querySelector('tbody').appendChild(newRow);
+                } else if (target.classList.contains('delete-row')) {
+                    if (table.rows.length > 2) {
+                        target.closest('tr').remove();
+                    } else {
+                        alert("At least one row must remain.");
+                    }
+                } else if (target.classList.contains('save-row')) {
+                    const row = target.closest('tr');
+                    row.querySelectorAll('input, select').forEach(input => input.disabled = true);
+                    row.querySelector('.save-row').style.display = 'none';
+                    row.querySelector('.edit-row').style.display = 'inline';
+                } else if (target.classList.contains('edit-row')) {
+                    const row = target.closest('tr');
+                    row.querySelectorAll('input, select').forEach(input => input.disabled = false);
+                    row.querySelector('.save-row').style.display = 'inline';
+                    row.querySelector('.edit-row').style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
